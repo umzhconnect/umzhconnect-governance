@@ -29,6 +29,8 @@
    - 6.4 [Emergency & Security Changes](#64-emergency--security-changes)
 7. [Prioritization & Roadmap](#7-prioritization--roadmap)
 8. [Participant Onboarding & Offboarding](#8-participant-onboarding--offboarding)
+   - 8.1 [Membership Commitments](#81-membership-commitments)
+   - 8.2 [Onboarding & Offboarding Pipeline](#82-onboarding--offboarding-pipeline)
 9. [Operations of Shared Services](#9-operations-of-shared-services)
 10. [Security, Privacy & Compliance Governance](#10-security-privacy--compliance-governance)
 11. [Funding & Sustainability](#11-funding--sustainability)
@@ -69,13 +71,14 @@ This blueprint defines **how that work is organized and decided** — who develo
 
 These principles are the tie-breakers for every decision in this document.
 
-1. **Standards-first, not product-first.** The IG and its conformance criteria are the primary asset. Services and code exist to realize and validate the standard, not the other way around.
-2. **Interoperability over local optimization.** Changes that serve one participant at the expense of network-wide interoperability are rejected or generalized.
-3. **Backward compatibility by default.** Breaking changes are exceptional, explicitly classified, announced with a deprecation window and coupled to a migration path.
-4. **Open and transparent.** Specifications, decisions and roadmaps are public by default; deliberations are minuted; artifacts carry open licenses (see [§12](#12-intellectual-property-licensing--openness)).
-5. **National-alignment ready.** Design and governance choices anticipate handover to national bodies (e.g. eHealth Suisse / national interoperability programs) and reuse Swiss base standards (CH Core and related) wherever possible.
-6. **Privacy and security by design.** Data-protection and security review are built into the change and onboarding processes, not bolted on (see [§10](#10-security-privacy--compliance-governance)).
-7. **Lightweight but accountable.** The smallest governance that works: clear owners, short paths, written decisions.
+1. **Use-case driven.** Concrete clinical use cases are the unit of work. Each use case **defines the structural requirements** (data structures and profiles) and the **workflow requirements** (API operations and interaction patterns), **is prioritized by business value**, and is **documented and manifested as examples in the IG**. Nothing enters the standard without a driving use case.
+2. **Standards-first, not product-first.** The IG and its conformance criteria are the primary asset. Services and code exist to realize and validate the standard, not the other way around.
+3. **Interoperability over local optimization.** Changes that serve one participant at the expense of network-wide interoperability are rejected or generalized.
+4. **Backward compatibility by default.** Breaking changes are exceptional, explicitly classified, announced with a deprecation window and coupled to a migration path.
+5. **Open and transparent.** Specifications, decisions and roadmaps are public by default; deliberations are minuted; artifacts carry open licenses (see [§12](#12-intellectual-property-licensing--openness)).
+6. **National-alignment ready.** Design and governance choices anticipate handover to national bodies (e.g. eHealth Suisse / national interoperability programs) and reuse Swiss base standards (CH Core and related) wherever possible.
+7. **Privacy and security by design.** Data-protection and security review are built into the change and onboarding processes, not bolted on (see [§10](#10-security-privacy--compliance-governance)).
+8. **Lightweight but accountable.** The smallest governance that works: clear owners, short paths, written decisions.
 
 ---
 
@@ -190,7 +193,7 @@ Working Groups (WGs) are where analysis, design and most recommendations happen.
 
 | Working Group | Mandate | Typical Outputs |
 |---|---|---|
-| **Clinical & Use-Case WG** | Prioritize and specify clinical use cases (referrals, lab orders, future flows); ensure clinical validity and workflow fit. | Use-case definitions, acceptance criteria, prioritization input |
+| **Clinical & Use-Case WG** | Own the **use-case driven approach**: identify, prioritize (by business value) and specify clinical use cases (referrals, lab orders, future flows); for each, derive the **structural** (data-structure/profile) and **workflow** (API-operation/interaction) requirements and ensure clinical validity, so the use case can be documented and manifested as examples in the IG. | Use-case definitions with structural & workflow requirements, acceptance criteria, prioritization input |
 | **Standards & IG WG** | Evolve the IG: profiles, data structures, API operations, value sets; alignment with CH Core and the international base IG. | IG change proposals, profile/binding decisions, conformance rules |
 | **Platform & Shared Services WG** | Design, build and operate the registry, auth server, sandbox and party stack; deployment and reference architecture. | Service changes, SLAs, release plans, ops runbooks |
 | **Security & Data-Protection WG** | Trust/security model, threat & risk assessment, DSFA/DPIA, consent model, incident response. | Security decisions, risk assessments, data-protection sign-off |
@@ -364,6 +367,29 @@ divided by **effort / cost**. Higher = sooner. The Clinical & Use-Case WG owns c
 ---
 
 ## 8. Participant Onboarding & Offboarding
+
+Membership in UMZH Connect is more than technical access to the network — it is a **commitment to the shared standard and its upkeep**. This section defines what members commit to ([§8.1](#81-membership-commitments)) and the process by which they join and leave ([§8.2](#82-onboarding--offboarding-pipeline)).
+
+### 8.1 Membership Commitments
+
+Joining is voluntary, but membership carries obligations that keep the ecosystem viable for everyone. These commitments are formalized in the **participation agreement** signed at onboarding ([§8.2](#82-onboarding--offboarding-pipeline), stage 2). By becoming a member, a participant commits to:
+
+- **Governance participation.** Actively contribute to the bodies that steer the ecosystem — delegate members to the **Working Groups** relevant to their roles and use cases, take part in the **Participant Assembly**, and, where elected, serve on the **Steering Committee**. Membership is participatory, not passive consumption.
+- **Conformant implementation & operation.** Implement **and operate IG-conformant APIs** for each of the participant's **own selected roles** (Placer and/or Fulfiller) and **selected use cases** — including passing conformance testing, running the APIs to the agreed service levels, and keeping them certified against a supported IG version as the standard evolves.
+- **Contribution to open-source artifacts.** Contribute back to the shared, openly-licensed artifacts (IG, reference stack, tests, tooling) — fixes, improvements and, where appropriate, generally-useful extensions — under the project's contributor terms ([§12](#12-intellectual-property-licensing--openness)), rather than maintaining private forks that fragment interoperability.
+- **Financial commitment.** *To be defined.* A member contribution (membership/onboarding fee and/or in-kind effort) is anticipated as the funding model broadens; the model, amounts and any tiering are set by the Steering Committee ([§11](#11-funding--sustainability)) and applied transparently and proportionately.
+
+Additional commitments that follow from the above and are likewise encoded in the participation agreement:
+
+- **Data protection & security.** Act as **controller** of one's own patient data, maintain the required DSFA/DPIA and consent handling ([§10](#10-security-privacy--compliance-governance)), meet the **security baseline** and reference architecture, apply security patches in a timely manner, and honour **incident and breach reporting** duties.
+- **Operational reliability & directory accuracy.** Meet agreed **availability/SLA** obligations as a service provider, keep the participant's **mCSD registry** records and endpoints accurate and current, and practise credential/key hygiene (rotation, safekeeping).
+- **Conformance upkeep & migration.** Adopt **breaking changes within the published deprecation window** ([§6.3](#63-versioning--release-policy)), re-certify when adopting a new normative IG version, and take part in interoperability/regression testing when asked.
+- **Good-faith collaboration & transparency.** Respect recorded decisions (ADRs) and the change process, share operational feedback, and avoid unilateral non-standard behaviour that undermines network-wide interoperability.
+- **Named contacts & orderly exit.** Designate a **technical** and a **governance** contact, and give **advance notice** before leaving, following the offboarding process ([§8.2](#82-onboarding--offboarding-pipeline)) and remaining data-protection obligations on exit.
+
+Commitments scale with involvement: a member acting only as a Placer for a single use case carries a lighter operational load than one operating Fulfiller APIs across several use cases. The **role/use-case selection a member declares at onboarding sets the scope of its obligations.**
+
+### 8.2 Onboarding & Offboarding Pipeline
 
 Onboarding is a **governed, staged pipeline** owned by the Onboarding & Conformance WG and executed by the Technical Office. Admitting a *new class* of participant (e.g. practices, labs) is a Steering-Committee decision; admitting an *individual* participant of an approved class is an operational decision.
 

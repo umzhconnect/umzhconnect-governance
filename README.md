@@ -52,6 +52,25 @@ and a **Participant Assembly**. The full model is described in the
 - **Mid-term, hand over** the maintained artifacts and operated services to
   national initiatives, so the standard outlives its regional origin.
 
+## A use-case driven approach
+
+UMZH Connect is driven by **concrete clinical use cases**, not by technology for
+its own sake. Each use case:
+
+- **defines the structural requirements** — the data structures and profiles the
+  exchange must carry;
+- **defines the workflow requirements** — the API operations and interaction
+  patterns the collaboration needs;
+- **is prioritized based on business value** — clinical and operational benefit
+  decides what we build next (see the
+  [operating model](governance-blueprint.md#7-prioritization--roadmap));
+- **is documented and manifested in the IG** — worked examples (e.g. orthopedic
+  and sarcoma-tumorboard referrals) are captured as examples in the
+  [Implementation Guide](https://github.com/umzhconnect/umzhconnect-ig).
+
+This keeps the standard grounded in real, measurable value and extensible as new
+use cases and participants join.
+
 ## What are our services
 
 UMZH Connect maintains a set of shared **artifacts** and operates shared
@@ -88,7 +107,10 @@ We welcome participants and contributors.
 - **Become a participant** — healthcare providers (hospitals today; practices and
   labs later) can join through a governed onboarding pipeline: apply → conformance
   testing → security & data-protection review → registry entry and credentials →
-  go-live. See
+  go-live. Membership carries commitments — governance participation, operating
+  IG-conformant APIs for your chosen roles and use cases, open-source contribution,
+  and a (to-be-defined) financial contribution. See
+  [Membership Commitments](governance-blueprint.md#81-membership-commitments) and
   [Participant Onboarding](governance-blueprint.md#8-participant-onboarding--offboarding).
 - **Contribute to the standard** — raise a change request or join a Working Group.
   Contributions to the IG follow its
