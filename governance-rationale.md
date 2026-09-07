@@ -44,11 +44,14 @@ change. The structure is designed for the network it will become, not only the
 one it is today; §8 describes how it is run in a reduced configuration until the
 volume justifies more.
 
-**Built for handover.** eHealth Suisse and national interoperability programs are
-the intended long-term home. Choosing open licenses, transferable contributor
-terms, versioned conformance, documented SLAs and an auditable decision trail
-from the start is what makes a later handover an administrative step rather than a
-rebuild.
+**Built for handover.** The two regimes have different long-term homes: the **IG
+goes to HL7 CH** (already balloted through HL7 CH; adoption as an HL7 CH IG is the
+remaining step, so by handover time little is left to transfer — core blueprint
+§5.4, open item 11), and the **shared services go to a national operator**
+(eHealth Suisse or a cantonal/federal body). Choosing open licenses, transferable
+contributor terms, HL7 CH balloting, versioned conformance, documented SLAs and an
+auditable decision trail from the start is what makes a later handover an
+administrative step rather than a rebuild.
 
 ---
 
@@ -70,15 +73,19 @@ rebuild.
 5. **Open and transparent.** Public specifications, minuted deliberations and
    open licenses are both a trust mechanism for participants and a precondition
    for handover to a public body.
-6. **National-alignment ready.** Reusing CH Core and related base standards, and
-   keeping a (non-voting) national liaison seat, keeps the design nationally
-   compatible so Phase 3/4 of the transition is not a fork.
+6. **HL7 CH aligned.** Building the IG on CH Core and the related Swiss IGs, and
+   balloting it through HL7 CH, makes the national standards body the process the
+   IG lives in — not a late handover target bolted on at Phase 4. The IG is
+   balloted through HL7 CH today while still UMZH Connect-maintained; adoption as
+   an HL7 CH IG is the remaining step (§10, item 11). The trade-off is cadence:
+   HL7 CH ballots run on their own calendar, slower than an internal release
+   train, which is why the transition is phased (§9).
 7. **Privacy and security by design.** Health data and a shared trust fabric mean
    data-protection and security review are gates in the change and onboarding
    flow, with a compliance veto — not a review bolted on at the end.
 8. **Lightweight but accountable.** Every body, role and ceremony has to earn its
    place. New WGs are chartered when a real backlog exists and dissolved when it
-   is done; the Stage 1 configuration (§8) is the default until growth forces
+   is done; the pilot configuration (§8) is the default until growth forces
    expansion.
 
 ---
@@ -95,7 +102,7 @@ flowchart TB
 
         subgraph WGS["Working Groups"]
             WG1["Clinical & Use-Case WG"]
-            WG2["Standards & IG WG"]
+            WG2["IG WG<br/>(IG balloted via HL7 CH)"]
             WG3["Platform & Shared Services WG"]
             WG4["Security & Data-Protection WG"]
             WG5["Onboarding & Conformance WG"]
@@ -105,7 +112,7 @@ flowchart TB
     end
 
     PARTIES["Participants<br/>(hospitals, later practices, labs)"]
-    NAT["National Initiatives<br/>(handover target)"]
+    NAT["Handover targets<br/>(IG → HL7 CH; services → national operator)"]
 
     FUND -->|mandate & budget| SC
     SC -->|direction, priorities| TO
@@ -122,7 +129,7 @@ Four layers: a **Steering Committee** (strategic authority), a **Technical
 Office** (execution and operations), topic-based **Working Groups** (where the
 work and most recommendations happen), and a **Participant Assembly** (the
 community of onboarded parties). Funding sits outside the governance bodies and
-provides mandate and budget. The diagram shows the full (post–Stage 1)
+provides mandate and budget. The diagram shows the full (post-pilot)
 configuration.
 
 ### Steering Committee — composition (indicative)
@@ -145,7 +152,8 @@ roster, and the national-alignment liaison is excluded from both.
 - **Technical Office Lead** — overall accountable for delivery and operations;
   sits on the Steering Committee.
 - **IG / Standards Maintainer** — owns the IG repository, FSH sources,
-  conformance criteria and changelog.
+  conformance criteria and changelog; the liaison to HL7 CH for the IG's
+  comment cycles and publication.
 - **Platform / SRE** — operates the registry and auth server (availability,
   upgrades, incident response); maintains sandbox and party stack.
 - **Onboarding Engineer** — runs participant onboarding, conformance testing and
@@ -163,7 +171,7 @@ have a single named owner.
 | Working Group | Mandate | Typical outputs |
 |---|---|---|
 | **Clinical & Use-Case WG** | Own the use-case driven approach: identify, prioritize (by business value) and specify clinical use cases (referrals, lab orders, future flows); for each, derive the structural (data-structure/profile) and workflow (API-operation/interaction) requirements and ensure clinical validity, so the use case can be documented and manifested as examples in the IG. | Use-case definitions with structural & workflow requirements, acceptance criteria, prioritization input |
-| **Standards & IG WG** | Evolve the IG: profiles, data structures, API operations, value sets; alignment with CH Core and the international base IG. | IG change proposals, profile/binding decisions, conformance rules |
+| **IG WG** | Own and evolve the IG: profiles, data structures, API operations, value sets, FSH, conformance rules. Runs the IG's **HL7 CH comment cycle and reconciliation** (core §5.4); prepares the IG for adoption as an HL7 CH IG (open item 11); keeps it built on CH Core and related Swiss IGs. | IG change proposals, profile/binding decisions, comment reconciliation records, conformance rules |
 | **Platform & Shared Services WG** | Design, build and operate the registry, auth server, sandbox and party stack; deployment and reference architecture. | Service changes, SLAs, release plans, ops runbooks |
 | **Security & Data-Protection WG** | Trust/security model, threat & risk assessment, DSFA/DPIA, consent model, incident response. | Security decisions, risk assessments, data-protection sign-off |
 | **Onboarding & Conformance WG** | Onboarding process, conformance/certification suite, registry admission, participant support. | Onboarding checklist, conformance test suite, admission recommendations |
@@ -216,10 +224,14 @@ flowchart LR
     DEC -->|rejected / deferred| BACK["Backlog / closed<br/>(with rationale)"]
 ```
 
-The process is uniform across the IG, the shared services and the reference
-artifacts, and builds on existing per-repo conventions (`CONTRIBUTING.md`,
-`BACKLOG.md`, `requests/`). Transparency is the constant: every CR is public with
-a visible status, and a rejection or deferral carries a written rationale.
+The intake, triage, prioritization and transparency steps are uniform across the
+IG, the shared services and the reference artifacts, and build on existing
+per-repo conventions (`CONTRIBUTING.md`, `BACKLOG.md`, `requests/`). Where they
+diverge is the **decide/release** stage: a substantive IG change runs HL7 CH's
+standards process (core blueprint §5.4), while a service change is decided by the
+owning WG or SC and shipped on the internal release train. Transparency is the
+constant: every CR is public with a visible status, and a rejection or deferral
+carries a written rationale.
 
 ---
 
@@ -232,15 +244,15 @@ working rubric:
   standardization impact**, **compliance / risk reduction**, **national-alignment
   fit** — is scored **1, 2, 3, 5, 8, 13** (a Fibonacci-style scale; higher =
   more).
-- **Effort / cost** is scored on the same scale by the Standards and Platform WGs.
+- **Effort / cost** is scored on the same scale by the IG and Platform WGs.
 - **Priority score = (sum of the four value scores) ÷ effort.** Higher scores are
   scheduled sooner.
 - Ownership of the inputs: the Clinical & Use-Case WG owns clinical/participant
-  value; the Standards and Platform WGs own effort and interoperability impact;
+  value; the IG and Platform WGs own effort and interoperability impact;
   the Security & Data-Protection WG owns risk reduction; the national-alignment
   liaison (or, absent one, the Technical Office Lead) owns national-alignment fit.
 
-The weights are deliberately equal in v0.2. If experience shows one dimension
+The weights are deliberately equal in v0.3. If experience shows one dimension
 should dominate (most likely compliance/risk), the SC can adjust the weighting as
 a strategic decision and record it here.
 
@@ -273,7 +285,7 @@ IG versions it actually adopts.
 
 ## 8. Scaling the governance
 
-The core blueprint's §4.4 defines a **Stage 1 (pilot) configuration**: two merged
+The core blueprint's §4.4 defines a reduced **pilot configuration**: two merged
 Working Groups, a Steering Committee and Technical Office that may sit jointly,
 and no Participant Assembly until there are enough participants to elect
 representatives. This section describes when and how the structure expands.
@@ -281,7 +293,8 @@ representatives. This section describes when and how the structure expands.
 | Growth trigger | Change |
 |---|---|
 | **≥ 4 onboarded participants** | Stand up the Participant Assembly; hold the first election of participant representatives to the Steering Committee. |
-| **A Working Group's backlog cannot be worked within its meeting cadence for two consecutive quarters** | Split that merged WG into its constituent standing WGs (e.g. Standards & Clinical → Clinical & Use-Case WG + Standards & IG WG). |
+| **A Working Group's backlog cannot be worked within its meeting cadence for two consecutive quarters** | Split that merged WG into its constituent standing WGs (e.g. Standards & Clinical → Clinical & Use-Case WG + IG WG). |
+| **The IG stabilizes and HL7 CH is ready to adopt it** | Move the IG from UMZH Connect-maintained-but-HL7-CH-balloted to an **HL7 CH IG**: HL7 CH becomes publisher/owner and a dedicated HL7 CH working group (Arbeitsgruppe) is set up for it under the Technical Committee (core blueprint §5.4). |
 | **A second participant class is admitted** (practices or labs) | Charter a dedicated onboarding task force for that class; review eligibility and conformance rules. |
 | **Shared-service operations exceed best-effort** (a participant depends on them for production clinical workflow) | Formalize SLAs/SLOs, on-call and incident process; separate the Platform role from the Security role in the Technical Office. |
 | **A national counterpart is identified** | Seat the non-voting national-alignment liaison on the Steering Committee; begin joint roadmap work (transition Phase 2, §9). |
@@ -303,38 +316,43 @@ flowchart LR
 ```
 
 - **Phase 1 — Pilot:** UMZH-funded, regional participants; standard and services
-  proven.
-- **Phase 2 — Broaden:** additional funders and participants; a national-alignment
-  liaison joins the Steering Committee (advisory) to keep the design nationally
-  compatible.
+  proven. The IG is UMZH Connect-maintained and **balloted through HL7 CH**.
+- **Phase 2 — Broaden:** additional funders and participants; the IG is **adopted
+  as an HL7 CH IG** (HL7 CH becomes publisher/owner; a dedicated HL7 CH working
+  group is set up for it under the Technical Committee); a national-alignment
+  liaison joins the Steering Committee (advisory).
 - **Phase 3 — Co-governance:** the national initiative co-chairs relevant bodies;
-  joint roadmap.
-- **Phase 4 — Handover:** transfer of repositories, service operation, registry
-  authority, trademark/conformance mark, and governance to the national body,
-  with a transition period and continuity guarantees for participants.
+  joint roadmap. The IG is maintained under HL7 CH rules with UMZH Connect as an
+  active project contributor.
+- **Phase 4 — Handover:** the IG is an HL7 CH IG (little left to transfer);
+  service operation, registry authority, trademark/conformance mark and the
+  remaining governance transfer to the national operator, with a transition
+  period and continuity guarantees for participants.
 
 **Readiness criteria** (all must hold before Phase 4 — see core blueprint §13):
 stable versioned IG with a healthy conformance suite and multiple certified
-participants; services operated to documented SLAs with runbooks, DR and audit;
-open transferable licensing and contributor terms; a named national counterpart
-with mandate and capacity; a national funding path.
+participants; the IG adopted as an HL7 CH IG; services operated to documented SLAs
+with runbooks, DR and audit; open transferable licensing and contributor terms; a
+named national **service** operator with mandate and capacity; a national funding
+path.
 
 **Continuity guarantees:** participants certified under UMZH Connect stay valid
 across the handover; the IG version and registry/credentials are preserved or
 migrated with notice.
 
-**If no national counterpart emerges:** the Steering Committee's annual review of
-the handover plan explicitly considers the fallback — continued regional
-operation under broadened funding, transfer to another neutral steward, or a
-planned wind-down with sufficient notice for participants to adapt. The pilot is
-not open-ended by default; sustainability (core blueprint §11) has to be
-re-confirmed each budget cycle.
+**If no national service operator emerges:** the IG still has a home (HL7 CH), so
+the risk is confined to the shared services. The Steering Committee's annual
+review of the handover plan explicitly considers the fallback for the services —
+continued regional operation under broadened funding, transfer to another neutral
+steward, or a planned wind-down with sufficient notice for participants to adapt.
+The pilot is not open-ended by default; sustainability (core blueprint §11) has to
+be re-confirmed each budget cycle.
 
 ---
 
 ## 10. Open items
 
-Items deliberately unresolved in v0.2, to be closed as the initiative matures.
+Items deliberately unresolved in v0.3, to be closed as the initiative matures.
 Each should become a change request against this blueprint.
 
 | # | Open item | Owner | Needed by |
@@ -349,3 +367,5 @@ Each should become a change request against this blueprint.
 | 8 | **Steering Committee voting-seat roster** — the exact number and allocation of voting seats, so quorum and the two-thirds threshold are unambiguous. (Core blueprint §5.2.) | Steering Committee | At first constitution of the SC |
 | 9 | **Data-protection role of the shared services** — the definitive controller/processor analysis for the registry and auth-server data, recorded in the BRA and reflected in the participation agreement. (Core blueprint §10.) | Security & Data-Protection WG + DPO | Before the first external participation agreement is signed |
 | 10 | **Prioritization weighting** — confirm or adjust the equal weighting of the four value dimensions in §6 once there is scoring experience. | Steering Committee | After the first roadmap cycle |
+| 11 | **Adoption of the IG as an HL7 CH IG** — the IG is already balloted through HL7 CH; agree the terms on which HL7 CH becomes publisher/owner and a dedicated HL7 CH working group (Arbeitsgruppe) is set up for it under the Technical Committee. (Core blueprint §5.4.) | IG WG + Steering Committee | Phase 2 (broaden) |
+| 12 | **IG license reconciliation** — align the IG's CC0 intent with the HL7 International license on the upstream COW IG and with HL7 CH's IG-licensing conventions. (Core blueprint §12.) | IG WG + legal | Immediate — the current HL7 CH balloting may already impose licensing terms; confirm what applies |
