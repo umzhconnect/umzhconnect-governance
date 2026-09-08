@@ -48,9 +48,10 @@ the pilot and scaled up as the network grows. The full model is described in the
 
 - Enable **automated, standardized clinical order and referral workflows** between
   healthcare providers.
-- Establish a **nation-wide standard** for digital clinical orders, built on Swiss
-  base standards ([CH Core](https://fhir.ch/ig/ch-core/index.html),
-  [CH eTOC](https://fhir.ch/ig/ch-etoc/index.html)) and the international COW IG.
+- Establish a **nation-wide standard** for digital clinical orders, built on
+  [CH Core](https://fhir.ch/ig/ch-core/index.html),
+  [CH eTOC](https://fhir.ch/ig/ch-etoc/index.html) and the related Swiss
+  orders/referral and lab IGs (CH ORF, CH ELM), plus the international COW IG.
 - **Mid-term, hand over** the maintained artifacts and operated services to
   national initiatives, so the standard outlives its regional origin.
 
@@ -92,6 +93,8 @@ We operate as a **standards-first, open, and interoperability-driven** steward:
 - **Change management** — all evolution of the standard, services and artifacts
   flows through a single, transparent change-request process, with classification
   (editorial → breaking), semantic versioning and predictable release trains.
+  The IG is **balloted through HL7 CH**, with adoption as an HL7 CH IG the
+  intended next step.
 - **Prioritization & decisions** — an explicit value-over-effort prioritization
   model feeds a roadmap approved by the Steering Committee; decisions default to
   lazy consensus and are recorded.
@@ -109,14 +112,16 @@ We welcome participants and contributors.
 - **Become a participant** — healthcare providers (hospitals today; practices and
   labs later) can join through a governed onboarding pipeline: apply → conformance
   testing → security & data-protection review → registry entry and credentials →
-  go-live. Membership carries commitments — governance participation, operating
-  IG-conformant APIs for your chosen roles and use cases, open-source contribution,
-  and a (to-be-defined) financial contribution. See
+  go-live. Membership carries commitments — governance participation, HL7 CH
+  membership, operating IG-conformant APIs for your chosen roles and use cases,
+  open-source contribution, and a (to-be-defined) financial contribution. See
   [Membership Commitments](governance-blueprint.md#81-membership-commitments) and
   [Participant Onboarding](governance-blueprint.md#8-participant-onboarding--offboarding).
 - **Contribute to the standard** — raise a change request or join a Working Group.
   Contributions to the IG follow its
-  [CONTRIBUTING guide](https://github.com/umzhconnect/umzhconnect-ig/blob/main/CONTRIBUTING.md).
+  [CONTRIBUTING guide](https://github.com/umzhconnect/umzhconnect-ig/blob/main/CONTRIBUTING.md);
+  the IG is balloted through HL7 CH, so substantive changes run through HL7 CH
+  balloting.
 - **Join the conversation** — the Participant Assembly and Working Groups are open
   to delegates from any participating organisation.
 
