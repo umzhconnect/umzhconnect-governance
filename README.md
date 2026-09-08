@@ -39,7 +39,9 @@ the onboarding** of new participants and the further development of the ecosyste
 
 Governance runs through a lightweight but accountable structure — a **Steering
 Committee**, a **Technical Office** (core team), topic-based **Working Groups**,
-and a **Participant Assembly**. The full model is described in the
+and a **Participant Assembly** — run in a
+[reduced configuration](governance-rationale.md#8-scaling-the-governance) during
+the pilot and scaled up as the network grows. The full model is described in the
 [operating model](governance-blueprint.md).
 
 ## What is our goal
@@ -122,7 +124,8 @@ We welcome participants and contributors.
 
 | Document | What it covers |
 |---|---|
-| [Governance — Operating Model](governance-blueprint.md) | Who governs and operates the ecosystem; bodies, roles, change management, prioritization, decision-taking, onboarding, funding, and handover. |
+| [Governance — Operating Model](governance-blueprint.md) | The normative core: bodies, roles, RACI, decision classes, change management, prioritization, onboarding, funding, and handover. |
+| [Governance — Rationale & Background](governance-rationale.md) | Non-normative companion: why the model is shaped this way, the diagrams, composition detail, how the structure scales with the network, and the open items. |
 | [Data Security & Data Protection](data-security.md) | How sensitive health data is protected: legal basis, security-by-design, consent/authorization model, and the detailed assessments. |
 | [Reference Architecture](reference-architecture.md) | The production-grade architecture for a single hospital participating in the ecosystem. |
 | [Technical Aid](https://github.com/umzhconnect/umzhconnect-ig) | The IG, sandbox and party stack that help participants implement and integrate — see [`umzhconnect-sandbox`](https://github.com/umzhconnect/umzhconnect-sandbox) and [`umzhconnect-cow`](https://github.com/umzhconnect/umzhconnect-cow). |
