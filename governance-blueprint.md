@@ -26,7 +26,36 @@
 11. [Funding & Sustainability](#11-funding--sustainability)
 12. [Intellectual Property, Licensing & Openness](#12-intellectual-property-licensing--openness)
 13. [Handover to National Initiatives](#13-handover-to-national-initiatives)
-14. [Glossary](#14-glossary)
+
+*A [Glossary](#glossary) of terms and abbreviations follows immediately below.*
+
+---
+
+## Glossary
+
+| Term | Meaning |
+|---|---|
+| **IG** | Implementation Guide — the normative FHIR specification (`umzhconnect-ig`). |
+| **HL7 CH** | HL7 Switzerland — the Swiss HL7 affiliate that publishes the Swiss FHIR IGs. |
+| **HL7 CH Technical Committee** | HL7 CH's committee for implementation-guide work; each Swiss FHIR IG is assigned to a **working group (Arbeitsgruppe)** under it. |
+| **CH Core / CH eTOC / CH ORF / CH ELM** | Swiss FHIR base and domain IGs (core; transition of care; orders & referrals; laboratory) the IG builds on. |
+| **Comment cycle / ballot** | HL7 CH's review of a draft standard: a public comment period, recorded reconciliation, then publication. Mechanics per HL7 CH's current rules. |
+| **STU / Normative** | *Normative* means either an IG's binding conformance content (not its examples/prose) or the maturity status after *STU (Trial Use)* — the IG is at STU. Neither is the package version. |
+| **Substantive change** | A change that alters conformance expectations; requires a new comment cycle. Non-substantive changes (typos, clarifications) ship as technical corrections. |
+| **Connectathon / Projectathon** | Scheduled interoperability test events (HL7 CH connectathon; the IHE Suisse / eHealth Suisse Projectathon). |
+| **mCSD** | *Mobile Care Services Discovery* — the IHE profile behind the registry of Organizations/Endpoints/HealthcareServices. |
+| **Shared services** | The centrally operated registry and authorization server. |
+| **Party / Participant** | An onboarded healthcare provider (hospital; later practice, lab) acting as Placer and/or Fulfiller. |
+| **Placer / Fulfiller** | The ordering party and the servicing party in a clinical order workflow. |
+| **CR** | Change Request. |
+| **ADR** | Architecture/Decision Record — the durable written record of a decision. |
+| **WG** | Working Group. |
+| **SC** | Steering Committee. |
+| **WSJF** | *Weighted Shortest Job First* — the value-over-effort prioritization heuristic. |
+| **DSFA / DPIA** | Data-Protection Impact Assessment (*Datenschutz-Folgenabschätzung*). |
+| **BRA** | *Bearbeitungsreglement* — records/rules of personal-data processing. |
+| **Conformance / certification** | Verified compliance of a participant's implementation with a specific IG version. |
+| **UMZH** | Universitäre Medizin Zürich — the current funding body and mandate holder. |
 
 ---
 
@@ -67,16 +96,16 @@ Each asset has a **maintaining working group** and a **designated maintainer** a
 
 | Asset | Repository / Location | Type | Primary Working Group |
 |---|---|---|---|
-| **Implementation Guide** (profiles, use cases, API operations, security) | `umzhconnect-ig` | Specification | IG WG |
-| **Use-case definitions** (structural & workflow requirements, acceptance criteria) | `umzhconnect-ig` (`input/use-cases/`) | Specification input | Clinical & Use-Case WG |
-| **mCSD Registry** (Organizations, Endpoints, HealthcareServices) | `umzhconnect-registry` | Shared service | Platform & Shared Services WG |
-| **Authorization Server** (Keycloak, SMART/OAuth2 M2M) | `umzhconnect-auth` | Shared service | Platform & Shared Services WG |
-| **Reference / Sandbox** (two-party reference implementation) | `umzhconnect-sandbox` | Reference artifact | Platform & Shared Services WG |
-| **Party Integration Stack** ("cow" — single-hospital node) | `umzhconnect-cow` | Reference artifact | Platform & Shared Services WG |
-| **Reference Architecture** (production single-hospital) | `umzhconnect-governance/reference-architecture.md` | Guidance | Platform & Shared Services WG |
-| **Data-Protection Blueprints** (BRA, DSFA/DPIA, consent template) | `umzhconnect-governance/datenschutz/` | Compliance artifact | Security & Data-Protection WG |
+| **Implementation Guide** (profiles, use cases, API operations, security) | `umzhconnect-ig` | Specification | Use-Case & IG WG |
+| **Use-case definitions** (structural & workflow requirements, acceptance criteria) | `umzhconnect-ig` (`input/use-cases/`) | Specification input | Use-Case & IG WG |
+| **mCSD Registry** (Organizations, Endpoints, HealthcareServices) | `umzhconnect-registry` | Shared service | Implementation & Artifacts WG |
+| **Authorization Server** (Keycloak, SMART/OAuth2 M2M) | `umzhconnect-auth` | Shared service | Implementation & Artifacts WG |
+| **Reference / Sandbox** (two-party reference implementation) | `umzhconnect-sandbox` | Reference artifact | Implementation & Artifacts WG |
+| **Party Integration Stack** ("cow" — single-hospital node) | `umzhconnect-cow` | Reference artifact | Implementation & Artifacts WG |
+| **Reference Architecture** (production single-hospital) | `umzhconnect-governance/reference-architecture.md` | Guidance | Implementation & Artifacts WG |
+| **Data-Protection Blueprints** (BRA, DSFA/DPIA, consent template) | `umzhconnect-governance/datenschutz/` | Guidance | Governance & Data-Protection WG |
 | **Governance Blueprint** (this document + rationale) | `umzhconnect-governance/` | Governance | Steering Committee |
-| **Conformance & test suites** | per-repo `tests/` | Quality artifact | owning WG + Onboarding & Conformance WG |
+| **Conformance & test suites** | per-repo `tests/` | Quality artifact | owning WG + Governance & Data-Protection WG |
 
 **Two governance regimes** run in parallel and are kept in step:
 
@@ -96,19 +125,17 @@ A contract change that affects the services triggers a coordinated release acros
 | **Steering Committee** (SC) | Strategic authority; escalation point of last resort; accountable for the handover. | Annual roadmap and release-train dates; major/breaking changes to the services and reference artifacts (IG content goes through [§5.4](#54-ig-changes-hl7-ch-balloting)); changes to the security or trust model; onboarding of new *classes* of participant and eligibility/conformance rules; budget and funding model; handover plan; chartering/merging/dissolving WGs. | Quarterly + extraordinary |
 | **Technical Office** (Core Team) | The standing, (partly) funded team that does and coordinates day-to-day work: maintains artifacts, **operates the shared services**, runs releases, staffs onboarding. | Editorial changes; CR triage and classification; release-train execution; operational decisions within agreed SLAs. | Weekly sync |
 | **Working Groups** (WGs) | Where analysis, design and most recommendations happen. Each has a chair, a charter and an open backlog. Membership is open to delegates from any participant plus co-opted experts. | Minor/non-breaking changes (lazy consensus); recommendations on major/breaking changes; backlog prioritization for their topic. | Bi-weekly to monthly |
-| **Participant Assembly** | The forum of all onboarded participants — the community voice. Each participant nominates delegates. | Raises and endorses change requests and roadmap items; elects participant representatives to the SC; is consulted, with a defined comment period, on breaking changes (for IG content, via the HL7 CH comment period — [§5.4](#54-ig-changes-hl7-ch-balloting)) and onboarding-rule changes. | Semi-annual + always-open intake |
+| **Participant Assembly** | The forum of all onboarded participants — the community voice. Each participant nominates delegates. | Elects participant representatives to the SC; is consulted, with a defined comment period, on breaking changes (for IG content, via the HL7 CH comment period — [§5.4](#54-ig-changes-hl7-ch-balloting)) and onboarding-rule changes. | Semi-annual + always-open intake |
 
-Funding sits **outside** the governance bodies and provides mandate and budget. SC composition (chair, sponsor representatives, Technical Office lead, elected participant representatives, the Security & Data-Protection WG chair, and a non-voting national-alignment liaison once identified) is set out in the [Rationale](governance-rationale.md#3-organizational-structure--diagram--notes); the SC fixes and publishes its exact voting-seat roster.
+Funding sits **outside** the governance bodies and provides mandate and budget. SC composition (chair, sponsor representatives, Technical Office lead, elected participant representatives, the Governance & Data-Protection WG chair, and a non-voting national-alignment liaison once identified) is set out in the [Rationale](governance-rationale.md#3-organizational-structure--diagram--notes); the SC fixes and publishes its exact voting-seat roster.
 
 ### 4.2 Standing Working Groups
 
 | Working Group | Mandate |
 |---|---|
-| **Clinical & Use-Case WG** | Identify, prioritize (by business value) and specify clinical use cases; for each, derive structural and workflow requirements and ensure clinical validity. Feeds requirements to the IG WG. |
-| **IG WG** | Own the IG: profiles, data structures, API operations, value sets, FSH, conformance rules, publication. Runs its **HL7 CH comment cycle** and prepares it for adoption as an HL7 CH IG ([§5.4](#54-ig-changes-hl7-ch-balloting)); keeps it built on CH Core and related Swiss IGs. |
-| **Platform & Shared Services WG** | Design, build and operate the registry, auth server, sandbox and party stack; deployment and reference architecture. |
-| **Security & Data-Protection WG** | Trust/security model, threat & risk assessment, DSFA/DPIA, consent model, incident response. |
-| **Onboarding & Conformance WG** | Onboarding process, conformance/certification suite, registry admission, participant support. |
+| **Use-Case & IG WG** | Specify clinical use cases and own the IG. Identify and prioritize use cases, derive their structural and workflow requirements, and turn them into IG content (profiles, API operations, value sets, conformance rules, publication). Runs the **HL7 CH comment cycle** and prepares the IG for adoption as an HL7 CH IG ([§5.4](#54-ig-changes-hl7-ch-balloting)); keeps it built on CH Core and related Swiss IGs. |
+| **Implementation & Artifacts WG** | Build and operate the shared services (registry, auth server) and the reference artifacts (sandbox, party stack, reference architecture). |
+| **Governance & Data-Protection WG** | Trust/security model, threat & risk assessment and incident response; data-protection guidance (consent model, DSFA/DPIA and BRA blueprints — guidance only, no certifiable or regulatory artifacts); onboarding, the conformance/certification suite and registry admission. |
 
 WGs may also be **time-boxed task forces** chartered by the SC for a specific deliverable, then dissolved. During the pilot the standing WGs run in a merged configuration ([§4.4](#44-pilot-configuration)).
 
@@ -119,25 +146,25 @@ WGs may also be **time-boxed task forces** chartered by the SC for a specific de
 | Activity | SC | Technical Office | Relevant WG | Participant Assembly |
 |---|---|---|---|---|
 | Set strategy & annual roadmap | **A** | R | C | C |
-| Specify a use case | I | R | **A** (Clinical) | C |
-| IG non-substantive change (technical correction) | I | R | **A** (IG WG) | I |
-| IG substantive change — scope & publication slot | **A** | R | C (IG WG) | I |
-| IG substantive change — content & reconciliation | I | R | **A** (IG WG, per HL7 CH rules) | C (via own HL7 CH membership) |
-| Operate shared services (registry/auth) | I | **A/R** | C (Platform) | I |
+| Specify a use case | I | R | **A** (Use-Case & IG) | C |
+| IG non-substantive change (technical correction) | I | R | **A** (Use-Case & IG) | I |
+| IG substantive change — scope & publication slot | **A** | R | C (Use-Case & IG) | I |
+| IG substantive change — content & reconciliation | I | R | **A** (Use-Case & IG, per HL7 CH rules) | C (via own HL7 CH membership) |
+| Operate shared services (registry/auth) | I | **A/R** | C (Implementation & Artifacts) | I |
 | Approve a release train | **A** | R | C | I |
 | Prioritize the backlog | C | R | **A** (per topic) | C |
-| Onboard an individual participant | I | R | **A** (Onboarding) | I |
+| Onboard an individual participant | I | R | **A** (Governance & Data-Protection) | I |
 | Onboard a new *class* of participant | **A** | R | C | C |
-| Security / trust-model change | **A** | R | **R** (Security) | C |
-| Data-protection sign-off (DSFA) | I | C | **A** (Security) | I |
+| Security / trust-model change | **A** | R | **R** (Governance & Data-Protection) | C |
+| Data-protection review (onboarding gate) | I | C | **A** (Governance & Data-Protection) | I |
 | Funding & budget | **A** | C | I | I |
-| Handover (IG → HL7 CH; services → national operator) | **A** | R | C (IG WG for the IG) | C |
+| Handover (IG → HL7 CH; services → national operator) | **A** | R | C (Use-Case & IG for the IG) | C |
 
 ### 4.4 Pilot configuration
 
 While the network is small (regional pilot, UMZH-funded, first university hospitals and close partners), the full structure runs in a reduced configuration:
 
-- **Two working groups**, not five: a **Standards & Clinical WG** (merging Clinical & Use-Case + IG WG) and a **Platform, Security & Onboarding WG** (merging Platform & Shared Services + Security & Data-Protection + Onboarding & Conformance). The Security & Data-Protection compliance veto ([§5.2](#52-process-quorum--voting)) still applies within the merged group. The Standards & Clinical WG carries the IG WG's HL7 CH mandate, including the IG's HL7 CH ballot ([§5.4](#54-ig-changes-hl7-ch-balloting)).
+- **Two working groups**, not three: the **Use-Case & IG WG**, and a combined **Implementation, Governance & Data-Protection WG** (merging Implementation & Artifacts + Governance & Data-Protection). The data-protection/compliance veto ([§5.2](#52-process-quorum--voting)) still applies within the combined group. The Use-Case & IG WG carries the HL7 CH mandate, including the IG's HL7 CH ballot ([§5.4](#54-ig-changes-hl7-ch-balloting)).
 - **Steering Committee and Technical Office** may meet jointly, provided decisions are minuted under the correct body and the SC voting rules are respected for major/breaking/strategic items.
 - **Participant Assembly** convenes once enough participants exist to elect representatives (target: ≥ 4 onboarded participants); until then, participant feedback is gathered directly by the Technical Office and consultation on breaking changes is bilateral.
 
@@ -170,7 +197,7 @@ Every change is assigned a class. The class sets the decision authority, who is 
 
 - **Working Group:** simple majority of active members; the chair breaks ties. Quorum = 3 members or half of active members, whichever is greater.
 - **Steering Committee:** simple majority; **major / breaking / strategic** decisions require a **two-thirds majority of voting seats**. Quorum = a majority of voting seats including the Chair. The Chair breaks ties except on breaking/strategic items, which need the two-thirds threshold rather than a casting vote. The non-voting national-alignment liaison counts toward neither quorum nor result.
-- **Compliance veto:** the Security & Data-Protection WG may **block** a change on documented compliance/risk grounds. The block is overridden only by an SC two-thirds vote **and** a recorded risk acceptance.
+- **Compliance veto:** the Governance & Data-Protection WG may **block** a change on documented compliance/risk grounds. The block is overridden only by an SC two-thirds vote **and** a recorded risk acceptance.
 
 **Every non-editorial decision is recorded** as a short **Architecture/Decision Record (ADR)** in the owning repository: context, options, decision, consequences, responsible body.
 
@@ -182,13 +209,13 @@ Path: **Change request / issue → owning WG →** (unresolved or major) **→ T
 
 ### 5.4 IG changes: HL7 CH balloting
 
-The IG is maintained by UMZH Connect (IG WG) and builds on CH Core and related Swiss IGs. It is **currently balloted through HL7 CH** — HL7 CH runs the standards process (public comment, reconciliation) — but it is **not yet published or owned by HL7 CH**. Adoption as an HL7 CH IG is the remaining step ([§13](#13-handover-to-national-initiatives), [Rationale open item 11](governance-rationale.md#10-open-items)). Decisions on **normative IG content** follow that process rather than the internal path in [§5.1](#51-decision-classes):
+The IG is maintained by UMZH Connect (Use-Case & IG WG) and builds on CH Core and related Swiss IGs. It is **currently balloted through HL7 CH** — HL7 CH runs the standards process (public comment, reconciliation) — but it is **not yet published or owned by HL7 CH**. Adoption as an HL7 CH IG is the remaining step ([§13](#13-handover-to-national-initiatives), [Rationale open item 11](governance-rationale.md#10-open-items)). Decisions on **normative IG content** follow that process rather than the internal path in [§5.1](#51-decision-classes):
 
-- **Non-substantive** IG changes — a typo, clarification or fix that does not change conformance expectations — are decided by IG WG lazy consensus and published as a technical correction.
+- **Non-substantive** IG changes — a typo, clarification or fix that does not change conformance expectations — are decided by Use-Case & IG WG lazy consensus and published as a technical correction.
 - **Substantive** IG changes — new or removed profile, changed cardinality or binding strength, new mandatory element, changed interaction — go through **HL7 CH's published standards process**: published draft → public comment period → recorded reconciliation → new versioned release, per HL7 CH's current rules.
-- **Urgent security-relevant IG corrections** cannot wait for a comment slot: the IG WG and Security & Data-Protection WG publish an out-of-band technical correction, the SC **ratifies** after the fact (as in [§6.4](#64-emergency--security-changes)), and it is carried into the next comment cycle for confirmation.
+- **Urgent security-relevant IG corrections** cannot wait for a comment slot: the Use-Case & IG WG and Governance & Data-Protection WG publish an out-of-band technical correction, the SC **ratifies** after the fact (as in [§6.4](#64-emergency--security-changes)), and it is carried into the next comment cycle for confirmation.
 
-The **Steering Committee governs the envelope, not the content**: it approves the IG's scope and its roadmap slot, but does not adjudicate profile-level content or the comment reconciliation — that sits with the IG WG under HL7 CH rules. Everything else keeps the [§5.1](#51-decision-classes) path.
+The **Steering Committee governs the envelope, not the content**: it approves the IG's scope and its roadmap slot, but does not adjudicate profile-level content or the comment reconciliation — that sits with the Use-Case & IG WG under HL7 CH rules. Everything else keeps the [§5.1](#51-decision-classes) path.
 
 On **adoption as an HL7 CH IG**, HL7 CH becomes publisher/owner and a **dedicated working group (Arbeitsgruppe)** is set up for the IG under the HL7 CH Technical Committee; the full transition is in the [Rationale](governance-rationale.md#9-handover-to-national-initiatives--transition-model).
 
@@ -229,7 +256,7 @@ Triage assigns a provisional class from the [§5.1](#51-decision-classes) table;
 For security vulnerabilities or service-affecting incidents the Technical Office may **act first and ratify later**:
 
 1. Triage severity; if it endangers data, trust or availability, invoke the fast-track.
-2. Apply the fix (hotfix release / service mitigation), Security & Data-Protection WG lead informed.
+2. Apply the fix (hotfix release / service mitigation), Governance & Data-Protection WG lead informed.
 3. Notify affected participants promptly; handle any statutory data-protection breach notification per [§10](#10-security-privacy--compliance-governance).
 4. SC **ratifies** at the next or an extraordinary session; a post-incident review and ADR are produced.
 
@@ -239,7 +266,7 @@ For security vulnerabilities or service-affecting incidents the Technical Office
 
 Prioritization is explicit and repeatable so the roadmap reflects value, not volume of voices.
 
-**Scoring (WSJF-style):** each candidate is scored on clinical / participant value, interoperability / standardization impact, compliance / risk reduction, and national-alignment fit, divided by effort / cost. Higher = sooner. The Clinical & Use-Case WG owns clinical value; the IG and Platform WGs own effort and interoperability estimates; the Security & Data-Protection WG owns risk scoring. The concrete scale and weights are in the [Rationale](governance-rationale.md#6-prioritization--the-scoring-model).
+**Scoring (WSJF-style):** each candidate is scored on clinical / participant value, interoperability / standardization impact, compliance / risk reduction, and national-alignment fit, divided by effort / cost. Higher = sooner. The Use-Case & IG WG owns clinical value and interoperability estimates; the Implementation & Artifacts WG owns effort estimates; the Governance & Data-Protection WG owns risk scoring. The concrete scale and weights are in the [Rationale](governance-rationale.md#6-prioritization--the-scoring-model).
 
 **Roadmap process:** WGs maintain prioritized backlogs (`BACKLOG.md`) and review them monthly → the Technical Office consolidates a draft annual roadmap with release-train dates → the Participant Assembly reviews and comments → the SC **approves** the roadmap and any in-year re-prioritization that shifts a release train.
 
@@ -270,13 +297,13 @@ Commitments **scale with involvement**: the role/use-case selection a member dec
 
 ### 8.2 Onboarding & offboarding pipeline
 
-A governed, staged pipeline owned by the Onboarding & Conformance WG and executed by the Technical Office. Admitting a *new class* of participant is an SC decision; admitting an *individual* participant of an approved class is operational.
+A governed, staged pipeline owned by the Governance & Data-Protection WG and executed by the Technical Office. Admitting a *new class* of participant is an SC decision; admitting an *individual* participant of an approved class is operational.
 
 1. **Apply** — organization declares intent, contacts, target use cases and role(s).
 2. **Eligibility & agreement** — meets participation criteria (including HL7 CH membership, [§8.1](#81-membership-commitments)); signs the participation agreement (obligations, data-protection roles, SLAs, IP/licensing acceptance, security baseline).
 3. **Sandbox integration** — integrate against `umzhconnect-sandbox` / `umzhconnect-cow`; no production data.
 4. **Conformance testing** — pass the versioned conformance suite for the target IG version; participation in the HL7 CH FHIR connectathon / eHealth Suisse Projectathon counts toward this where scheduled.
-5. **Security & data-protection review** — deployment reviewed against the reference architecture and the DSFA/consent blueprints; risk sign-off by the Security & Data-Protection WG.
+5. **Security & data-protection review** — deployment reviewed against the reference architecture and the DSFA/consent blueprints; risk sign-off by the Governance & Data-Protection WG.
 6. **Registry entry & credentials** — Technical Office creates the participant's `Organization`/`Endpoint`/`HealthcareService` records and provisions auth-server client(s), following the `requests/` and id-convention rules.
 7. **Production go-live** — coordinated cutover; monitoring in place.
 8. **Ongoing conformance** — re-certification is required on adopting a new normative IG version or on material integration changes.
@@ -309,9 +336,9 @@ Operational runbooks live with each service repository; this blueprint governs *
 
 ## 10. Security, Privacy & Compliance Governance
 
-Security and data protection are **cross-cutting gates**, owned by the Security & Data-Protection WG and embedded in the change and onboarding processes.
+Security and data protection are **cross-cutting gates**, owned by the Governance & Data-Protection WG and embedded in the change and onboarding processes.
 
-- **Data-protection artifacts** live in `umzhconnect-governance/datenschutz/`: the **BRA** (Bearbeitungsreglement), the **DSFA/DPIA blueprint**, and the **consent template**. These are governed artifacts with their own change process.
+- **Data-protection guidance** lives in `umzhconnect-governance/datenschutz/`: the **BRA** (Bearbeitungsreglement), the **DSFA/DPIA blueprint**, and the **consent template**. These are **guidance and templates, not certifiable or regulatory artifacts** — each participant, as controller, produces and maintains its own binding data-protection documentation. They are governed artifacts with their own change process.
 - **Roles under data-protection law:** participants are **controllers** of their clinical data. The shared services carry directory and machine-to-machine authorization data, not clinical payloads; UMZH Connect's controller/processor position for that data is stated in the BRA and encoded in the participation agreement.
 - **Consent model:** the ecosystem is consent-centric (fine-grained, policy-enforced authorization). Consent-model changes are **security-class** decisions with WG sign-off.
 - **Mandatory security review** for any change touching the trust/security model, the auth server, the registry's exposure, or a participant's production deployment. The WG holds the compliance veto ([§5.2](#52-process-quorum--voting)).
@@ -361,34 +388,6 @@ A core strategic aim is a **nation-wide standard** and, **mid-term, handover** o
 - A funding path on the national side for continued operation.
 
 **Continuity guarantees:** participants certified under UMZH Connect remain valid across the handover; the IG version and registry/credentials are preserved or migrated with notice. Routing the IG to HL7 CH removes the "no counterpart" risk for the specification; the SC owns and periodically reviews the handover plan, including the fallback if no national **service** operator emerges. The phased transition model is in the [Rationale](governance-rationale.md#9-handover-to-national-initiatives--transition-model).
-
----
-
-## 14. Glossary
-
-| Term | Meaning |
-|---|---|
-| **IG** | Implementation Guide — the normative FHIR specification (`umzhconnect-ig`). |
-| **HL7 CH** | HL7 Switzerland — the Swiss HL7 affiliate that publishes the Swiss FHIR IGs. |
-| **HL7 CH Technical Committee** | HL7 CH's committee for implementation-guide work; each Swiss FHIR IG is assigned to a **working group (Arbeitsgruppe)** under it. |
-| **CH Core / CH eTOC / CH ORF / CH ELM** | Swiss FHIR base and domain IGs (core; transition of care; orders & referrals; laboratory) the IG builds on. |
-| **Comment cycle / ballot** | HL7 CH's review of a draft standard: a public comment period, recorded reconciliation, then publication. Mechanics per HL7 CH's current rules. |
-| **STU / Normative** | *Normative* means either an IG's binding conformance content (not its examples/prose) or the maturity status after *STU (Trial Use)* — the IG is at STU. Neither is the package version. |
-| **Substantive change** | A change that alters conformance expectations; requires a new comment cycle. Non-substantive changes (typos, clarifications) ship as technical corrections. |
-| **Connectathon / Projectathon** | Scheduled interoperability test events (HL7 CH connectathon; the IHE Suisse / eHealth Suisse Projectathon). |
-| **mCSD** | *Mobile Care Services Discovery* — the IHE profile behind the registry of Organizations/Endpoints/HealthcareServices. |
-| **Shared services** | The centrally operated registry and authorization server. |
-| **Party / Participant** | An onboarded healthcare provider (hospital; later practice, lab) acting as Placer and/or Fulfiller. |
-| **Placer / Fulfiller** | The ordering party and the servicing party in a clinical order workflow. |
-| **CR** | Change Request. |
-| **ADR** | Architecture/Decision Record — the durable written record of a decision. |
-| **WG** | Working Group. |
-| **SC** | Steering Committee. |
-| **WSJF** | *Weighted Shortest Job First* — the value-over-effort prioritization heuristic. |
-| **DSFA / DPIA** | Data-Protection Impact Assessment (*Datenschutz-Folgenabschätzung*). |
-| **BRA** | *Bearbeitungsreglement* — records/rules of personal-data processing. |
-| **Conformance / certification** | Verified compliance of a participant's implementation with a specific IG version. |
-| **UMZH** | Universitäre Medizin Zürich — the current funding body and mandate holder. |
 
 ---
 

@@ -101,11 +101,9 @@ flowchart TB
         TO["Technical Office / Core Team<br/>(day-to-day maintenance & operations)"]
 
         subgraph WGS["Working Groups"]
-            WG1["Clinical & Use-Case WG"]
-            WG2["IG WG<br/>(IG balloted via HL7 CH)"]
-            WG3["Platform & Shared Services WG"]
-            WG4["Security & Data-Protection WG"]
-            WG5["Onboarding & Conformance WG"]
+            WG1["Use-Case & IG WG<br/>(IG balloted via HL7 CH)"]
+            WG2["Implementation & Artifacts WG"]
+            WG3["Governance & Data-Protection WG"]
         end
 
         PA["Participant Assembly<br/>(all onboarded parties)"]
@@ -139,7 +137,7 @@ configuration.
 - **Technical Office Lead.**
 - **2–4 participant representatives**, elected by the Participant Assembly, with
   turnover to keep the network represented as it grows.
-- **Data-protection / security lead** (chair of the Security & Data-Protection WG).
+- **Data-protection / security lead** (chair of the Governance & Data-Protection WG).
 - **National-alignment liaison** — non-voting advisory seat for the target
   national initiative once identified.
 
@@ -158,7 +156,7 @@ roster, and the national-alignment liaison is excluded from both.
   upgrades, incident response); maintains sandbox and party stack.
 - **Onboarding Engineer** — runs participant onboarding, conformance testing and
   registry entries.
-- **Security & DPO liaison** — coordinates with the Security & Data-Protection WG
+- **Security & DPO liaison** — coordinates with the Governance & Data-Protection WG
   and the DPO function.
 - **Release / Programme Manager** — runs the change pipeline, roadmap, minutes
   and communications.
@@ -170,11 +168,9 @@ have a single named owner.
 
 | Working Group | Mandate | Typical outputs |
 |---|---|---|
-| **Clinical & Use-Case WG** | Own the use-case driven approach: identify, prioritize (by business value) and specify clinical use cases (referrals, lab orders, future flows); for each, derive the structural (data-structure/profile) and workflow (API-operation/interaction) requirements and ensure clinical validity, so the use case can be documented and manifested as examples in the IG. | Use-case definitions with structural & workflow requirements, acceptance criteria, prioritization input |
-| **IG WG** | Own and evolve the IG: profiles, data structures, API operations, value sets, FSH, conformance rules. Runs the IG's **HL7 CH comment cycle and reconciliation** (core §5.4); prepares the IG for adoption as an HL7 CH IG (open item 11); keeps it built on CH Core and related Swiss IGs. | IG change proposals, profile/binding decisions, comment reconciliation records, conformance rules |
-| **Platform & Shared Services WG** | Design, build and operate the registry, auth server, sandbox and party stack; deployment and reference architecture. | Service changes, SLAs, release plans, ops runbooks |
-| **Security & Data-Protection WG** | Trust/security model, threat & risk assessment, DSFA/DPIA, consent model, incident response. | Security decisions, risk assessments, data-protection sign-off |
-| **Onboarding & Conformance WG** | Onboarding process, conformance/certification suite, registry admission, participant support. | Onboarding checklist, conformance test suite, admission recommendations |
+| **Use-Case & IG WG** | Own the use-case driven approach and the IG. Identify, prioritize (by business value) and specify clinical use cases (referrals, lab orders, future flows), deriving each one's structural (data-structure/profile) and workflow (API-operation/interaction) requirements; turn them into IG content (profiles, data structures, API operations, value sets, FSH, conformance rules). Runs the IG's **HL7 CH comment cycle and reconciliation** (core §5.4); prepares the IG for adoption as an HL7 CH IG (open item 11); keeps it built on CH Core and related Swiss IGs. | Use-case definitions with acceptance criteria, IG change proposals, profile/binding decisions, comment reconciliation records, conformance rules |
+| **Implementation & Artifacts WG** | Build and operate the shared services (registry, auth server) and the reference artifacts (sandbox, party stack, reference architecture); deployment and release engineering. | Service changes, SLAs, release plans, ops runbooks |
+| **Governance & Data-Protection WG** | Trust/security model, threat & risk assessment and incident response; data-protection guidance (consent model, DSFA/DPIA and BRA blueprints — guidance and templates only, not certifiable or regulatory artifacts); onboarding, the conformance/certification suite and registry admission. | Security decisions, risk assessments, data-protection guidance & templates, onboarding checklist, conformance test suite, admission recommendations |
 
 ### Participant Assembly
 
@@ -244,13 +240,15 @@ working rubric:
   standardization impact**, **compliance / risk reduction**, **national-alignment
   fit** — is scored **1, 2, 3, 5, 8, 13** (a Fibonacci-style scale; higher =
   more).
-- **Effort / cost** is scored on the same scale by the IG and Platform WGs.
+- **Effort / cost** is scored on the same scale by the Use-Case & IG and
+  Implementation & Artifacts WGs.
 - **Priority score = (sum of the four value scores) ÷ effort.** Higher scores are
   scheduled sooner.
-- Ownership of the inputs: the Clinical & Use-Case WG owns clinical/participant
-  value; the IG and Platform WGs own effort and interoperability impact;
-  the Security & Data-Protection WG owns risk reduction; the national-alignment
-  liaison (or, absent one, the Technical Office Lead) owns national-alignment fit.
+- Ownership of the inputs: the Use-Case & IG WG owns clinical/participant
+  value and interoperability impact; the Implementation & Artifacts WG owns
+  effort; the Governance & Data-Protection WG owns risk reduction; the
+  national-alignment liaison (or, absent one, the Technical Office Lead) owns
+  national-alignment fit.
 
 The weights are deliberately equal in v0.3. If experience shows one dimension
 should dominate (most likely compliance/risk), the SC can adjust the weighting as
@@ -273,7 +271,7 @@ flowchart LR
 
 Admitting a *new class* of participant (practices, labs) is a Steering-Committee
 decision; admitting an *individual* participant of an already-approved class is an
-operational decision for the Technical Office and the Onboarding & Conformance WG.
+operational decision for the Technical Office and the Governance & Data-Protection WG.
 
 **Commitments scale with involvement.** A member acting only as a Placer for a
 single use case carries a lighter operational load than one operating Fulfiller
@@ -293,7 +291,7 @@ representatives. This section describes when and how the structure expands.
 | Growth trigger | Change |
 |---|---|
 | **≥ 4 onboarded participants** | Stand up the Participant Assembly; hold the first election of participant representatives to the Steering Committee. |
-| **A Working Group's backlog cannot be worked within its meeting cadence for two consecutive quarters** | Split that merged WG into its constituent standing WGs (e.g. Standards & Clinical → Clinical & Use-Case WG + IG WG). |
+| **A Working Group's backlog cannot be worked within its meeting cadence for two consecutive quarters** | Split that merged WG into its constituent standing WGs (e.g. the combined Implementation, Governance & Data-Protection WG → Implementation & Artifacts WG + Governance & Data-Protection WG). |
 | **The IG stabilizes and HL7 CH is ready to adopt it** | Move the IG from UMZH Connect-maintained-but-HL7-CH-balloted to an **HL7 CH IG**: HL7 CH becomes publisher/owner and a dedicated HL7 CH working group (Arbeitsgruppe) is set up for it under the Technical Committee (core blueprint §5.4). |
 | **A second participant class is admitted** (practices or labs) | Charter a dedicated onboarding task force for that class; review eligibility and conformance rules. |
 | **Shared-service operations exceed best-effort** (a participant depends on them for production clinical workflow) | Formalize SLAs/SLOs, on-call and incident process; separate the Platform role from the Security role in the Technical Office. |
@@ -363,9 +361,9 @@ Each should become a change request against this blueprint.
 | 4 | **Dispute resolution & appeal** — governing law and a dispute-resolution mechanism for the participation agreement; an appeal path for a participant contesting offboarding-for-cause; handling of participant-vs-participant disputes. | Steering Committee + legal | With item 1 |
 | 5 | **Bootstrap / v1.0 approval** — who seats the first Steering Committee and appoints the initial WG chairs, and who approves this blueprint at v1.0 given the SC does not yet exist. | UMZH (as mandate holder) | Before v1.0 |
 | 6 | **Financial model** — member contribution (fee and/or in-kind), amounts, any tiering; the split between "standard" and "service" budgets; multi-year sustainability plan. (Core blueprint §8.1, §11.) | Steering Committee | As funding broadens beyond UMZH |
-| 7 | **Service levels** — concrete availability targets, incident severity classes and response/restoration targets, maintenance-window policy for the registry and auth server. (Core blueprint §9.) | Platform & Shared Services WG | Before any participant runs production clinical workflow against the services |
+| 7 | **Service levels** — concrete availability targets, incident severity classes and response/restoration targets, maintenance-window policy for the registry and auth server. (Core blueprint §9.) | Implementation & Artifacts WG | Before any participant runs production clinical workflow against the services |
 | 8 | **Steering Committee voting-seat roster** — the exact number and allocation of voting seats, so quorum and the two-thirds threshold are unambiguous. (Core blueprint §5.2.) | Steering Committee | At first constitution of the SC |
-| 9 | **Data-protection role of the shared services** — the definitive controller/processor analysis for the registry and auth-server data, recorded in the BRA and reflected in the participation agreement. (Core blueprint §10.) | Security & Data-Protection WG + DPO | Before the first external participation agreement is signed |
+| 9 | **Data-protection role of the shared services** — the definitive controller/processor analysis for the registry and auth-server data, recorded in the BRA and reflected in the participation agreement. (Core blueprint §10.) | Governance & Data-Protection WG + DPO | Before the first external participation agreement is signed |
 | 10 | **Prioritization weighting** — confirm or adjust the equal weighting of the four value dimensions in §6 once there is scoring experience. | Steering Committee | After the first roadmap cycle |
-| 11 | **Adoption of the IG as an HL7 CH IG** — the IG is already balloted through HL7 CH; agree the terms on which HL7 CH becomes publisher/owner and a dedicated HL7 CH working group (Arbeitsgruppe) is set up for it under the Technical Committee. (Core blueprint §5.4.) | IG WG + Steering Committee | Phase 2 (broaden) |
-| 12 | **IG license reconciliation** — align the IG's CC0 intent with the HL7 International license on the upstream COW IG and with HL7 CH's IG-licensing conventions. (Core blueprint §12.) | IG WG + legal | Immediate — the current HL7 CH balloting may already impose licensing terms; confirm what applies |
+| 11 | **Adoption of the IG as an HL7 CH IG** — the IG is already balloted through HL7 CH; agree the terms on which HL7 CH becomes publisher/owner and a dedicated HL7 CH working group (Arbeitsgruppe) is set up for it under the Technical Committee. (Core blueprint §5.4.) | Use-Case & IG WG + Steering Committee | Phase 2 (broaden) |
+| 12 | **IG license reconciliation** — align the IG's CC0 intent with the HL7 International license on the upstream COW IG and with HL7 CH's IG-licensing conventions. (Core blueprint §12.) | Use-Case & IG WG + legal | Immediate — the current HL7 CH balloting may already impose licensing terms; confirm what applies |
