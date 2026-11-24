@@ -39,6 +39,8 @@
 | **Funding** | Part-funding of **CHF 20,000 per phase** and pilot, paid against milestones. Phase II funding requires an opt-in at application and a completed Phase I. |
 | **Budget** | Total **CHF 200,000**, so up to **5 pilots** can be funded (5 × CHF 40,000). |
 
+> **On "general practice":** throughout this tender, *general practitioner / general practice* stands representatively for the wider range of **referrers** the standard serves — for example specialist practices, outpatient and ambulatory clinics, and other referring care providers such as rehabilitation clinics or nursing and home-care services. General practice is the pilot's deliberate starting point, as the highest-volume sending side; the IG and shared services are not limited to it.
+
 ---
 
 ## 2. Background
@@ -54,6 +56,8 @@ The university hospitals are on board as receivers of referrals. The pilot tende
 ### 3.1 Phase I — Referral by API
 
 The applicant implements the **Placer** role for the referral use case of the IG:
+
+> **Data focus of Phase I:** the **patient master data** (demographics and administrative/referral context) and the **reason for referral** are the mandatory core. **Referenced clinical resources** (findings, reports, attachments) are **optional** and may be included where the GP system already holds them structured.
 
 - Create and send referrals from the GP system to a UMZH Connect member (the **Fulfiller**) through the IG's API operations and data structures, built on CH Core and the related Swiss IGs.
 - Use the **shared services**: find the receiver's endpoint in the mCSD registry, and authenticate through the UMZH Connect authorization server.
@@ -127,6 +131,7 @@ We further recommend these additional mandatory requirements, to be confirmed by
 | R7 | **Onboarding through the regular pipeline**, including the participation agreement ([Governance Blueprint §8](governance-blueprint.md#8-participant-onboarding--offboarding)) | Funded pilots get no shortcut to production |
 | R8 | **Open contribution:** generic fixes and improvements to the shared artifacts are contributed back. The applicant's own product remains its property. | Openness principle ([Governance Blueprint §12](governance-blueprint.md#12-intellectual-property-licensing--openness)) |
 | R9 | **Declarations:** no conflict of interest, no double funding of the same work, acceptance of the funding conditions | Integrity of the procedure |
+| R10 | **Transparency of the future licensing/cost model:** the applicant discloses at application the intended pricing and licensing model for productive use after the pilot — e.g. licence fees, per-practice or per-transaction charges, and support/maintenance terms — so participants can assess total cost of ownership | No lock-in and predictable cost before the network scales ([Governance Blueprint §12](governance-blueprint.md#12-intellectual-property-licensing--openness)) |
 
 ---
 
@@ -140,7 +145,7 @@ Applications that meet all requirements are scored from 0 to 5 per criterion. If
 | **Pilot readiness** | 25% | Committed partners on both sides, a concrete plan to go live, a credible timeline, an experienced team |
 | **Reach and scalability** | 20% | Installed base among GPs, a path from the pilot to general availability in the product, the number of practices that can follow |
 | **Data protection and security** | 15% | Quality of the data-protection concept, hosting, access control, incident handling |
-| **Value for money** | 10% | Co-financing share, plausibility of the effort, commitment to Phase II |
+| **Value for money** | 10% | Co-financing share, plausibility of the effort, commitment to Phase II, and a transparent, fair future licensing/cost model (R10) |
 
 **Diversity of the portfolio:** when scores are close, the Steering Committee may prefer a mix of systems, vendors and receiving members over several pilots on the same stack. This rule is published with the call.
 
@@ -153,8 +158,8 @@ Applications that meet all requirements are scored from 0 to 5 per criterion. If
 | 1. **Publication** | Call, criteria, templates and timeline are published on the UMZH Connect website and announced to PIS vendors, GP networks and associations | Technical Office | Week 0 |
 | 2. **Information session and Q&A** | One online information session; written questions are collected, and all answers are published anonymously to all interested parties | Technical Office | Weeks 1–4 |
 | 3. **Submission** | Applications are submitted electronically by the deadline; late submissions are not accepted | Applicants | Week 6 |
-| 4. **Formal check** | Completeness and mandatory requirements (R1–R9) checked; one short deadline to fix purely formal gaps | Technical Office | Weeks 7–8 |
-| 5. **Evaluation** | Each panel member scores independently, then the panel reaches a consensus score. The Security & Data-Protection representative may veto an application on compliance grounds. | Evaluation panel | Weeks 8–10 |
+| 4. **Formal check** | Completeness and mandatory requirements (R1–R10) checked; one short deadline to fix purely formal gaps | Technical Office | Weeks 7–8 |
+| 5. **Evaluation** | Each panel member scores independently, then the panel reaches a consensus score. The Governance & Data-Protection representative may veto an application on compliance grounds. | Evaluation panel | Weeks 8–10 |
 | 6. **Technical presentation** | Shortlisted applicants demonstrate their approach and answer questions (optional, at the panel's discretion) | Evaluation panel | Week 10 |
 | 7. **Award decision** | The Steering Committee decides on the panel's recommendation; the decision and its reasons are minuted | Steering Committee | Week 12 |
 | 8. **Notification and agreement** | All applicants receive a written decision with brief reasons; funded pilots sign the funding agreement and the participation agreement | Technical Office | Weeks 12–14 |
@@ -168,7 +173,7 @@ Applications that meet all requirements are scored from 0 to 5 per criterion. If
 
 The tender follows the existing governance structure ([Governance Blueprint §4](governance-blueprint.md#4-bodies--responsibilities)). No new bodies are created.
 
-| Activity | Steering Committee | Technical Office | Evaluation panel | Security & Data-Protection WG |
+| Activity | Steering Committee | Technical Office | Evaluation panel | Governance & Data-Protection WG |
 |---|---|---|---|---|
 | Approve the call, criteria, budget and funding agreement | **A** | R | C | C |
 | Run the procedure: publication, Q&A, formal check | I | **A/R** | I | I |
@@ -180,8 +185,8 @@ The tender follows the existing governance structure ([Governance Blueprint §4]
 **Evaluation panel:** 3–5 members appointed by the Steering Committee for this call:
 
 - the Technical Office lead (chair, non-voting if needed for an odd number of votes);
-- one representative of the Standards & Clinical WG;
-- one representative of the Platform, Security & Onboarding WG, who holds the compliance veto;
+- one representative of the Use-Case & IG WG;
+- one representative of the Governance & Data-Protection WG, who holds the compliance veto;
 - one clinical representative from general practice;
 - optionally, one independent external expert, such as one from HL7 CH or eHealth Suisse.
 
@@ -246,7 +251,7 @@ UMZH legal services must still **confirm this classification before publication 
 ## 11. Obligations of funded pilots
 
 - Complete the onboarding pipeline and remain conformant to a supported IG version for at least **[TBD: e.g. 24]** months after go-live.
-- Delegate a contact to the Standards & Clinical WG for the pilot period. Raise IG issues through the change-request process.
+- Delegate a contact to the Use-Case & IG WG for the pilot period. Raise IG issues through the change-request process.
 - Report pilot metrics monthly, without personal data:
   - number of referrals and completed loops;
   - error and rejection rates;
@@ -276,6 +281,8 @@ UMZH legal services must still **confirm this classification before publication 
 
 Templates for the letters of intent, the budget and the declarations are provided with the call **[TBD]**.
 
+> **Form of the application — keep it lean.** We expect a **compact slide deck** that covers the topics above (applicant profile, partners, technical concept and IG mapping, plan and milestones, budget and co-financing, data protection and security, and the future licensing/cost model), rather than a long prose document. The letters of intent, the budget and the declarations are attached separately on the provided templates. Clarity and conciseness count, not length.
+
 ---
 
 ## 13. Open items
@@ -284,9 +291,9 @@ Templates for the letters of intent, the budget and the declarations are provide
 |---|---|---|
 | 1 | Legal classification as a subsidy or a procurement, and the funding agreement template | UMZH legal services |
 | 2 | Thresholds for the milestones: referral volume, operating period, deadlines | Steering Committee, on proposal by the Technical Office |
-| 3 | Confirm the recommended requirements R6–R9 | Steering Committee |
+| 3 | Confirm the recommended requirements R6–R10 | Steering Committee |
 | 4 | Readiness and capacity of the receiving members, including Insel Spital, to receive referrals and deliver Phase II outputs (appointments, structured reports) | Technical Office with the members |
-| 5 | Status of the conformance suite for the Placer role and the Phase II outputs; the call should not open before it is available | Platform, Security & Onboarding WG |
+| 5 | Status of the conformance suite for the Placer role and the Phase II outputs; the call should not open before it is available | Governance & Data-Protection WG |
 | 6 | Whether funded vendors must hold HL7 CH membership, as participants must ([Governance Blueprint §8.1](governance-blueprint.md#81-membership-commitments)) | Steering Committee |
 | 7 | Binding or best-effort roll-out to further GP customers after the pilot | Steering Committee |
 | 8 | Composition of the evaluation panel | Steering Committee |
